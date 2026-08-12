@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CarMapper">
+    <select id="selectAll" resultType="com.example.entity.Car">
+        select car.*, car.ownerid as ownerId, user.name as ownerName from car
+        left join user on car.ownerid = user.id_card
+        <where>
+            <if test="plate != null">
+                car.plate like concat('%',#{plate},'%')
+            </if>
+        </where>
+        order by car.id desc
+    </select>
+
+    <insert id="insert" parameterType="com.example.entity.Car" useGeneratedKeys="true" keyProperty="id">
+        insert into car (plate, vin, model, brand, color, engine, ownerid, marktime, status, avatar)
+        values(#{plate}, #{vin}, #{model}, #{brand}, #{color}, #{engine}, #{ownerId}, #{markTime}, #{status}, #{avatar})
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.Car">
+        update car set plate = #{plate}, vin = #{vin}, model = #{model}, brand = #{brand}, color = #{color}, engine = #{engine}, ownerid = #{ownerId}, marktime = #{markTime}, status = #{status}, avatar = #{avatar} where id = #{id}
+    </update>
+
+
+    <select id="selectByOwnerID" resultType="com.example.entity.Car">
+        select car.*, car.ownerid as ownerId, user.name as ownerName from car
+        left join user on car.ownerid = user.id_card
+        <where>
+            car.ownerid = #{ownerId}
+            <if test="plate != null">
+                and car.plate like concat('%',#{plate},'%')
+            </if>
+        </where>
+        order by car.id desc
+    </select>
+
+</mapper>

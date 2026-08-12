@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+    <select id="selectAll" resultType="com.example.entity.User">
+        select * from user
+        <where>
+            <if test="name != null">
+                user.name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by user.id desc
+    </select>
+
+    <insert id="insert" parameterType="com.example.entity.User">
+        insert into user (id, username, password, name, id_card, phone, email, avatar , role ,points, status)
+        values(#{id}, #{username}, #{password}, #{name}, #{idCard}, #{phone}, #{email}, #{avatar}, #{role}, #{points}, #{status})
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.User">
+        update user set username = #{username}, password = #{password}, name = #{name}, id_card = #{idCard}, phone = #{phone}, email = #{email}, avatar = #{avatar}, role = #{role}, points=#{points}, status=#{status} where id = #{id}
+    </update>
+
+
+</mapper>

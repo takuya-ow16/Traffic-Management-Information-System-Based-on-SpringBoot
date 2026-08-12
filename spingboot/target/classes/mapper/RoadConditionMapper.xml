@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.RoadConditionMapper">
+    <select id="selectAll" resultType="com.example.entity.RoadCondition">
+        select * from roadcondition
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.example.entity.RoadCondition">
+        insert into roadcondition (roadid, plate,time)
+        values(#{roadId}, #{plate}, #{time})
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.RoadCondition">
+        update roadcondition set roadid = #{roadId}, plate = #{plate}, time = #{time} where id = #{id}
+    </update>
+
+
+</mapper>

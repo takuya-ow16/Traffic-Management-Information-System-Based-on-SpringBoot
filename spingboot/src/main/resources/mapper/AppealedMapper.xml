@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.AppealedMapper">
+
+    <insert id="insert" parameterType="com.example.entity.Appealed">
+        insert into appealed (id, content, reply)
+        values (#{violationId}, #{content}, #{reply})
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.Appealed">
+        update appealed
+        <set>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="reply != null">
+                reply = #{reply},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from appealed where id = #{id}
+    </delete>
+
+    <select id="selectAll" resultType="com.example.entity.Appealed">
+        select a.*, a.id as violationId, u.name as userName, v.plate as violationPlate, v.status as violationStatus
+        from appealed a
+        left join violation v on a.id = v.id
+        left join user u on v.ownerid = u.id_card
+        <where>
+            <if test="violationId != null">
+                and a.id = #{violationId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and u.name like concat('%', #{userName}, '%')
+            </if>
+            <if test="violationStatus != null and violationStatus != ''">
+                and v.status = #{violationStatus}
+            </if>
+        </where>
+        order by a.id desc
+    </select>
+
+</mapper>

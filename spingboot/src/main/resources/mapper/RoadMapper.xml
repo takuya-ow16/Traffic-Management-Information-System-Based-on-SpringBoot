@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.RoadMapper">
+    <select id="selectAll" resultType="com.example.entity.Road">
+        select * from road
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.example.entity.Road">
+        insert into road (name, linkaddress)
+        values(#{name}, #{linkaddress})
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.Road">
+        update road set name = #{name}, linkaddress = #{linkAddress} where id = #{id}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ViolationMapper">
+    <select id="selectAll" resultType="com.example.entity.Violation">
+        select v.*, u.name as ownerName, vi.name as violationName, vi.money as violationMoney, vi.points as violationPoints
+        from violation v
+        left join user u on v.ownerid = u.id_card
+        left join violationid vi on v.violationid = vi.id
+        <where>
+            <if test="plate != null">
+                v.plate like concat('%',#{plate},'%')
+            </if>
+        </where>
+        order by v.id desc
+    </select>
+
+    <insert id="insert" parameterType="com.example.entity.Violation">
+        insert into violation (plate, ownerid, time, address, violationid, image, status, infoid)
+        values(#{plate}, #{ownerId}, #{time}, #{address}, #{violationid}, #{image}, #{status}, #{infoid})
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.Violation">
+        update violation set plate = #{plate}, ownerid = #{ownerId}, time = #{time}, address = #{address}, violationid = #{violationid}, image = #{image}, status=#{status}, infoid=#{infoid} where id = #{id}
+    </update>
+
+
+    <select id="selectByOwnerID" resultType="com.example.entity.Violation">
+        select v.*, u.name as ownerName, vi.name as violationName, vi.money as violationMoney, vi.points as violationPoints
+        from violation v
+        left join user u on v.ownerid = u.id_card
+        left join violationid vi on v.violationid = vi.id
+        <where>
+            <if test="plate != null">
+                and v.plate like concat('%',#{plate},'%')
+            </if>
+            <if test="status != null">
+                and v.status = #{status}
+            </if>
+            and (
+                (v.ownerid = #{ownerId} and v.status != 'UND')
+                or 
+                (v.infoid = #{ownerId})
+            )
+        </where>
+        order by v.id desc
+    </select>
+</mapper>
