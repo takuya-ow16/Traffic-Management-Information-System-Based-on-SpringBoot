@@ -3,6 +3,22 @@
 这是一个基于spring boot的交通管理系统，通过yolo v8车牌检测模型对车牌进行检测和识别，并且能够将识别到的车牌实时加入数据库
 本项目使用的yolo v8模型来自：https://github.com/we0091234/Chinese\_license\_plate\_detection\_recognition
 
+# 技术选型
+|技术类型| 技术选型|
+|  ----  | ----  |
+前端开发框架| Vue3.0
+构建工具| Vite
+UI组件库| Element Plus
+数据可视化| ECharts
+路由管理 | Vue Router
+后端框架|Spring Boot
+ORM框架| MyBatis
+数据库|MySQL8.0
+AI服务框架| Flask
+计算机视觉| Open CV
+车牌识别| YOLO V8 & PyTorch
+身份认证| JWT
+
 # 角色
 
 本项目主要将角色分为三大类：
