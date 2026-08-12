@@ -46,9 +46,8 @@
 车流量统计： 系统能够自动统计并展示各路段近15分钟以及24小时的车流量趋势，生成可视化的折线图/。
 
 # 预览
-
-!\[](./img/img1.png)
-!\[](./img/img2.png)
-!\[](./img/img3.png)
-!\[](./img/img4.png)
+![](./img/img1.png)
+![](./img/img2.png)
+![](./img/img3.png)
+![](./img/img4.png)
 
